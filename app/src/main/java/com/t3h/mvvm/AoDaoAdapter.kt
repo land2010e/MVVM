@@ -54,19 +54,35 @@ class AoDaoAdapter : RecyclerView.Adapter<AoDaoAdapter.AodaiViewHolder> {
         }else {
             holder.itemView.setBackgroundColor(Color.WHITE)
         }
+        holder.itemView.setOnClickListener({
+            data.isClick = !data.isClick
+            //chi thay load lai item tai vi tri position
+            notifyItemChanged(position)
+            //xoa cac item va reload lai moi item
+//            notifyDataSetChanged()
 
-        holder.itemView.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(v: View) {
-                v.setBackgroundColor(Color.CYAN)
-                data.isClick=true
 
-                //tao intent
-                val intent = Intent()
-                intent.putExtra("CONTENT", data.name)
-                intent.setClass(v.context, ViewAcitivity::class.java)
-                v.context.startActivity(intent)
-            }
+//            it.setBackgroundColor(Color.CYAN)
+//            data.isClick=true
+
+            //tao intent
+//            val intent = Intent()
+//            intent.putExtra("CONTENT", data.name)
+//            intent.setClass(it.context, ViewAcitivity::class.java)
+//            it.context.startActivity(intent)
         })
+//        holder.itemView.setOnClickListener(object : View.OnClickListener{
+//            override fun onClick(v: View) {
+//                v.setBackgroundColor(Color.CYAN)
+//                data.isClick=true
+//
+//                //tao intent
+//                val intent = Intent()
+//                intent.putExtra("CONTENT", data.name)
+//                intent.setClass(v.context, ViewAcitivity::class.java)
+//                v.context.startActivity(intent)
+//            }
+//        })
 
     }
 
