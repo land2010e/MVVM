@@ -1,5 +1,6 @@
 package com.t3h.mvvm
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -7,15 +8,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.t3h.mvvm.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AoDaoAdapter.IAodaiAdapter {
     private val aodais: MutableList<AoDaiData> = mutableListOf()
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         initData()
-
-        val adapter = AoDaoAdapter(aodais)
+        val adapter = AoDaoAdapter(this)
         //cach sap xep cac itemview
         binding.rc.layoutManager = LinearLayoutManager(
             this,
@@ -558,5 +558,16 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    //    override fun getCount(): Int {
+//        return aodais.size
+//    }
+    override fun getCount() = aodais.size
 
+    override fun getData(position: Int)= aodais[position]
+
+    override fun onClickItem(position: Int) {
+        aodais[position].isClick = !aodais[position].isClick
+        aodais.removeAt(position)
+        binding.rc.adapter!!.notifyItemRemoved(position)
+    }
 }

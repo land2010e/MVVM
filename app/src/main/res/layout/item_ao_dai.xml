@@ -1,42 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+<layout>
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/iv_img"
-        android:layout_width="212dp"
-        android:layout_height="212dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:src="@drawable/ao_dai1" />
+    <data>
 
-    <LinearLayout
+        <variable
+            name="data"
+            type="com.t3h.mvvm.AoDaiData" />
+
+        <import type="android.graphics.Color" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background='@{data.click?Color.CYAN:Color.WHITE}'
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_img"
+            android:layout_width="212dp"
+            android:layout_height="212dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:text="Nguyen Van A"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            app:loadImageInt="@{data.imageId}"
+            android:src="@drawable/ao_dai1" />
 
-        <TextView
-            android:id="@+id/tv_last_message"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginRight="16dp"
-            android:maxLines="2"
-            android:text="As this is just a custom ImageView and not a custom Drawable or a combination of both, it can be used with all kinds of drawables, i.e. a PicassoDrawable from Picasso or other non-standard drawables (needs some testing though)."
-            android:textColor="@color/colorPrimary" />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:text='@{data.name, default="Nguyen Van A"}'
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_last_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginRight="16dp"
+                android:maxLines="2"
+                android:text="Nguyen test test setse"
+                app:setText="@{data.lastMessage}"
+                android:textColor="@color/colorPrimary" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</layout>

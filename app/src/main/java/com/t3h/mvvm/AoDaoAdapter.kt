@@ -1,23 +1,19 @@
 package com.t3h.mvvm
 
-import android.content.Intent
-import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.t3h.mvvm.databinding.ItemAoDaiBinding
 
 class AoDaoAdapter : RecyclerView.Adapter<AoDaoAdapter.AodaiViewHolder> {
-    private val aodais: MutableList<AoDaiData>
+    private val inter: IAodaiAdapter
 
-    constructor(aodais: MutableList<AoDaiData>) {
-        this.aodais = aodais
+    constructor(inter: IAodaiAdapter) {
+        this.inter = inter
     }
 
     override fun getItemCount(): Int {
-        return aodais.size
+        return this.inter.getCount()
     }
 
 
@@ -25,13 +21,12 @@ class AoDaoAdapter : RecyclerView.Adapter<AoDaoAdapter.AodaiViewHolder> {
             : AodaiViewHolder {
         //anh xa itemview bang LayoutInflate
         //tao viewholder
-        val itemView: View = LayoutInflater.from(parent.context)
-            .inflate(
-                R.layout.item_ao_dai,
-                parent,
-                false
-            )
-        return AodaiViewHolder(itemView)
+        val binding = ItemAoDaiBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return AodaiViewHolder(binding, inter)
     }
 
 
@@ -39,57 +34,35 @@ class AoDaoAdapter : RecyclerView.Adapter<AoDaoAdapter.AodaiViewHolder> {
         holder: AodaiViewHolder,
         position: Int
     ) {
-        val data = aodais[position]
-        //anh xa
-        val iv: ImageView = holder.itemView.findViewById<ImageView>(R.id.iv_img)
-        val tvUsername: TextView = holder.itemView.findViewById<TextView>(R.id.tv_name)
-        val tvLastMessage: TextView = holder.itemView.findViewById<TextView>(R.id.tv_last_message)
+        //do data len xml
+        holder.binding.data = inter.getData(position)
 
-        //do du lieu len
-        iv.setImageResource(data.imageId)
-        tvUsername.setText(data.name)
-        tvLastMessage.setText(data.lastMessage)
-        if (data.isClick){
-            holder.itemView.setBackgroundColor(Color.CYAN)
-        }else {
-            holder.itemView.setBackgroundColor(Color.WHITE)
-        }
-        holder.itemView.setOnClickListener({
-            data.isClick = !data.isClick
-            //chi thay load lai item tai vi tri position
-            notifyItemChanged(position)
-            //xoa cac item va reload lai moi item
-//            notifyDataSetChanged()
+    }
 
+    interface IAodaiAdapter {
+        fun getCount(): Int
+        fun getData(position: Int): AoDaiData
+        fun onClickItem(position: Int)
+    }
 
-//            it.setBackgroundColor(Color.CYAN)
-//            data.isClick=true
-
-            //tao intent
-//            val intent = Intent()
-//            intent.putExtra("CONTENT", data.name)
-//            intent.setClass(it.context, ViewAcitivity::class.java)
-//            it.context.startActivity(intent)
-        })
-//        holder.itemView.setOnClickListener(object : View.OnClickListener{
-//            override fun onClick(v: View) {
-//                v.setBackgroundColor(Color.CYAN)
-//                data.isClick=true
+    //        class AodaiViewHolder : RecyclerView.ViewHolder {
+//            private val binding: ItemAoDaiBinding
 //
-//                //tao intent
-//                val intent = Intent()
-//                intent.putExtra("CONTENT", data.name)
-//                intent.setClass(v.context, ViewAcitivity::class.java)
-//                v.context.startActivity(intent)
+//            constructor(binding: ItemAoDaiBinding) : super(binding.root) {
+//                this.binding = binding
 //            }
-//        })
-
-    }
-
-    class AodaiViewHolder : RecyclerView.ViewHolder {
-        constructor(itemView: View) : super(itemView) {
+//        }
+    class AodaiViewHolder(
+        val binding: ItemAoDaiBinding,
+        inter: IAodaiAdapter
+    ) : RecyclerView.ViewHolder(binding.root) {
+        //goi tu dong goi sau method khoi tao
+        init {
+            binding.root.setOnClickListener {
+                inter.onClickItem(adapterPosition)
+            }
         }
+
+
     }
-
-
 }
