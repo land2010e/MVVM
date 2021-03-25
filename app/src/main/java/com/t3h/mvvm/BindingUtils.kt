@@ -20,6 +20,24 @@ object BindingUtils {
     }
 
     @JvmStatic
+    @BindingAdapter("loadImageLink")
+    fun loadImageInt(iv: ImageView, link: String?) {
+        if (link == null) {
+            Glide.with(iv)
+                .load(R.drawable.ao_dai1)
+                .placeholder(R.drawable.ao_dai1)
+                .error(R.drawable.ao_dai1)
+                .into(iv)
+            return
+        }
+        Glide.with(iv)
+            .load(link)
+            .placeholder(R.drawable.ao_dai1)
+            .error(R.drawable.ao_dai1)
+            .into(iv)
+    }
+
+    @JvmStatic
     @BindingAdapter("setText")
     fun setText(tv: TextView, value: String?) {
         tv.setText(value)
