@@ -15,6 +15,9 @@
         </activity>
         <activity android:name=".ViewAcitivity" />
         <activity android:name=".asyntask.AsyntaskActivity">
+
+        </activity>
+        <activity android:name=".fragment.LoginRegisterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
