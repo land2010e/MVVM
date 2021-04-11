@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.t3h.mvvm.R
 import com.t3h.mvvm.databinding.FragmentLoginBinding
+import kotlinx.android.synthetic.main.fragment_login.view.*
 
 class LoginFragment : Fragment, View.OnClickListener {
     companion object {
@@ -35,6 +37,8 @@ class LoginFragment : Fragment, View.OnClickListener {
             inflater, container, false
         )
         binding!!.tvRegister.setOnClickListener(this)
+        binding!!.btnOpenStore.setOnClickListener(this)
+        binding!!.btnOpenExternalStore.setOnClickListener(this)
         return binding!!.root
     }
 
@@ -65,16 +69,30 @@ class LoginFragment : Fragment, View.OnClickListener {
     }
 
     override fun onClick(v: View) {
-        //activity: la activity chua fragment
-        (activity as LoginRegisterActivity)
-            .openRegister(
-                binding!!.edtUsername.text.toString()
-            )
+        when(v.id){
+            R.id.tv_register->{
+                //activity: la activity chua fragment
+                (activity as LoginRegisterActivity)
+                    .openRegister(
+                        binding!!.edtUsername.text.toString()
+                    )
+            }
+            R.id.btn_open_store->{
+                (activity as LoginRegisterActivity).openStore()
+            }
+            R.id.btn_open_external_store->{
+                (activity as LoginRegisterActivity).openExternalStoreFragment()
+            }
+        }
+
     }
 
     fun updateUsername(username: String) {
         binding!!.edtUsername.setText(username)
     }
 
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+    }
 
 }

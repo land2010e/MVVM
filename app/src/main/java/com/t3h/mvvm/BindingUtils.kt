@@ -42,5 +42,14 @@ object BindingUtils {
     fun setText(tv: TextView, value: String?) {
         tv.setText(value)
     }
+    @JvmStatic
+    @BindingAdapter("setImageFile")
+    fun setImageFile(iv:ImageView, isFile: Boolean) {
+        if (isFile){
+            iv.setImageResource(R.drawable.baseline_insert_drive_file_orange_500_48dp)
+        }else {
+            iv.setImageResource(R.drawable.baseline_folder_orange_500_48dp)
+        }
+    }
 
 }
