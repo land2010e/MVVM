@@ -1,9 +1,10 @@
-package com.t3h.mvvm
+package com.t3h.mvvm.ui.customview
 
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.t3h.mvvm.R
 
 object BindingUtils {
     //ta ca cac phuong thuc trong nay deu la static

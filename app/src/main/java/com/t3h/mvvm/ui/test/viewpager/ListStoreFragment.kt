@@ -1,91 +1,60 @@
-package com.t3h.mvvm.asyntask
+package com.t3h.mvvm.ui.test.viewpager
 
-import android.annotation.SuppressLint
 import android.os.AsyncTask
 import android.os.Bundle
-import android.os.SystemClock
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import com.t3h.mvvm.R
-import com.t3h.mvvm.databinding.ActivityAsyntaskBinding
+import com.t3h.mvvm.ui.test.asyntask.TruyenCuoiAdapter
+import com.t3h.mvvm.ui.test.asyntask.TruyenCuoiData
+import com.t3h.mvvm.databinding.FragmentListStoreBinding
 import org.jsoup.Jsoup
 import org.jsoup.select.Elements
 import java.util.concurrent.Executors
 
-class AsyntaskActivity : AppCompatActivity(), View.OnClickListener, TruyenCuoiAdapter.ITruyenCuoi {
-    private lateinit var binding: ActivityAsyntaskBinding
+class ListStoreFragment:Fragment(), TruyenCuoiAdapter.ITruyenCuoi{
+    private var binding:FragmentListStoreBinding?=null
     private val truyenCuois = mutableListOf<TruyenCuoiData>()
     private var currentPage = 1
     private val exs = Executors.newFixedThreadPool(3)
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(
-            this, R.layout.activity_asyntask
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+
+        binding = FragmentListStoreBinding.inflate(
+            inflater, container, false
         )
-        binding.btnStart.setOnClickListener(this)
-        binding.btnMore.setOnClickListener(this)
-        binding.rc.layoutManager = GridLayoutManager(this, 2)
-        binding.rc.adapter = TruyenCuoiAdapter(this)
-        loadDataAsyn("https://truyencotich.vn/truyen-co-tich/co-tich-viet-nam")
-    }
-
-    override fun onClick(v: View) {
-        when(v.id){
-            R.id.btn_more->{
-                currentPage++
-                loadDataAsyn("https://truyencotich.vn/truyen-co-tich/co-tich-viet-nam/page/$currentPage")
-            }
-        }
-//        createAsyn()
-    }
-
-    private fun createAsyn() {
-        val asyn = @SuppressLint("StaticFieldLeak")
-        object : AsyncTask<Int, String, String>() {
-            override fun doInBackground(vararg params: Int?): String {
-                for (i in params[0]!!..params[1]!!) {
-//                    binding.tvNumber.setText(i.toString())
-                    publishProgress(i.toString())
-                    SystemClock.sleep(1000)
-                }
-                return "Finish"
-            }
-
-            override fun onProgressUpdate(vararg values: String) {
-                binding.tvNumber.setText(values[0])
-            }
-
-            override fun onPostExecute(result: String) {
-                binding.tvNumber.setText(result)
-            }
-        }
-        asyn.executeOnExecutor(
-            exs,
-            0, 10
+        binding!!.rc.layoutManager = GridLayoutManager(context, 2)
+        binding!!.rc.adapter = TruyenCuoiAdapter(this)
+        loadDataAsyn(
+            arguments!!.getString("URL")!!
         )
+        return binding!!.root
     }
 
     private fun loadDataAsyn(link: String) {
-        binding.rl.visibility = View.VISIBLE
+
         val asyn = object : AsyncTask<String, Void, MutableList<TruyenCuoiData>>() {
             override fun doInBackground(vararg params: String): MutableList<TruyenCuoiData> {
                 return loadDataTruyenCuoi(params[0])
             }
 
             override fun onPostExecute(result: MutableList<TruyenCuoiData>) {
-                binding.rl.visibility = View.GONE
                 if (result.size == 0) {
                     return
                 }
                 truyenCuois.addAll(result)
-                binding.rc.adapter!!.notifyDataSetChanged()
-                binding.rc.smoothScrollToPosition(
-                    truyenCuois.size - result.size
-                )
+                binding!!.rc.adapter!!.notifyDataSetChanged()
+//                binding!!.rc.smoothScrollToPosition(
+//                    truyenCuois.size - result.size
+//                )
             }
         }
         asyn.execute(link)
@@ -121,7 +90,9 @@ class AsyntaskActivity : AppCompatActivity(), View.OnClickListener, TruyenCuoiAd
     override fun getData(position: Int)=truyenCuois[position]
 
     override fun onItemClick(position: Int) {
-        Toast.makeText(this, truyenCuois[position].title,
-        Toast.LENGTH_SHORT)
+        Toast.makeText(context, truyenCuois[position].title,
+            Toast.LENGTH_SHORT)
     }
+
+
 }

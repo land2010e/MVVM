@@ -1,4 +1,4 @@
-package com.t3h.mvvm.asyntask
+package com.t3h.mvvm.ui.test.asyntask
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

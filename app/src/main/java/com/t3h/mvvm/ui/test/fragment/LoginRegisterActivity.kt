@@ -1,12 +1,12 @@
-package com.t3h.mvvm.fragment
+package com.t3h.mvvm.ui.test.fragment
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.t3h.mvvm.BaseActivity
-import com.t3h.mvvm.BaseFragment
+import com.t3h.mvvm.ui.base.BaseActivity
+import com.t3h.mvvm.ui.base.BaseFragment
 import com.t3h.mvvm.R
-import com.t3h.mvvm.fragment.store.ExternalStoreFragment
+import com.t3h.mvvm.ui.test.fragment.store.ExternalStoreFragment
+import com.t3h.mvvm.ui.test.fragment.store.InfoStoreFragment
 
 class LoginRegisterActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,6 +16,7 @@ class LoginRegisterActivity : BaseActivity() {
 
 
     }
+
     private fun openFirstLoinFragment(){
         //them fragment vao
         //lay fragmentManager
@@ -123,5 +124,22 @@ class LoginRegisterActivity : BaseActivity() {
         }else {
             backRoot()
         }
+    }
+
+    fun openInforStoreFragment() {
+        supportFragmentManager.beginTransaction()
+            .setCustomAnimations(
+                R.anim.open_eneter, R.anim.open_exit,
+                R.anim.back_open, R.anim.back_exit
+            )
+            .hide(
+                findFragmentVisible()!!
+            )
+            .add(
+                R.id.content, InfoStoreFragment(),
+                InfoStoreFragment::javaClass.name
+            )
+            .addToBackStack(null)
+            .commit()
     }
 }

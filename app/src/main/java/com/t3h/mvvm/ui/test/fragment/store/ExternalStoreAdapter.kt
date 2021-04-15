@@ -1,4 +1,4 @@
-package com.t3h.mvvm.fragment.store
+package com.t3h.mvvm.ui.test.fragment.store
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

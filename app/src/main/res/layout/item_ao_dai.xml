@@ -5,7 +5,7 @@
 
         <variable
             name="data"
-            type="com.t3h.mvvm.AoDaiData" />
+            type="com.t3h.mvvm.ui.test.AoDaiData" />
 
         <import type="android.graphics.Color" />
     </data>

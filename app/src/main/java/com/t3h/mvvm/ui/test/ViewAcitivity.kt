@@ -1,8 +1,9 @@
-package com.t3h.mvvm
+package com.t3h.mvvm.ui.test
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.t3h.mvvm.R
 import com.t3h.mvvm.databinding.AcitivityViewBinding
 
 class ViewAcitivity : AppCompatActivity() {

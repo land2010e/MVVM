@@ -1,4 +1,4 @@
-package com.t3h.mvvm.fragment
+package com.t3h.mvvm.ui.test.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.t3h.mvvm.R
 import com.t3h.mvvm.databinding.FragmentLoginBinding
-import kotlinx.android.synthetic.main.fragment_login.view.*
 
 class LoginFragment : Fragment, View.OnClickListener {
     companion object {
@@ -39,6 +38,7 @@ class LoginFragment : Fragment, View.OnClickListener {
         binding!!.tvRegister.setOnClickListener(this)
         binding!!.btnOpenStore.setOnClickListener(this)
         binding!!.btnOpenExternalStore.setOnClickListener(this)
+        binding!!.btnOpenInfoStore.setOnClickListener(this)
         return binding!!.root
     }
 
@@ -82,6 +82,9 @@ class LoginFragment : Fragment, View.OnClickListener {
             }
             R.id.btn_open_external_store->{
                 (activity as LoginRegisterActivity).openExternalStoreFragment()
+            }
+            R.id.btn_open_info_store->{
+                (activity as LoginRegisterActivity).openInforStoreFragment()
             }
         }
 

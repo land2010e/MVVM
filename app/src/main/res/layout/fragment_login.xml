@@ -101,5 +101,13 @@
             android:layout_gravity="center_horizontal"
             android:background="?selectableItemBackground"
             android:text="Open External Store" />
+        <Button
+            android:id="@+id/btn_open_info_store"
+            android:layout_width="wrap_content"
+            android:textAllCaps="false"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="?selectableItemBackground"
+            android:text="Open Infor store" />
     </LinearLayout>
 </layout>

@@ -1,4 +1,4 @@
-package com.t3h.mvvm
+package com.t3h.mvvm.ui.test
 
 data class AoDaiData(
     val imageId: Int,

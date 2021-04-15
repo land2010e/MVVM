@@ -1,10 +1,10 @@
-package com.t3h.mvvm.fragment
+package com.t3h.mvvm.ui.test.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.t3h.mvvm.viewpager.ListStoreFragment
+import com.t3h.mvvm.ui.test.viewpager.ListStoreFragment
 
 class StoreAdapter : FragmentPagerAdapter {
     constructor(fm: FragmentManager) : super(fm)

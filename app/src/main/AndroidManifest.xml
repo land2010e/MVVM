@@ -12,21 +12,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.main.MainActivity">
 
         </activity>
-        <activity android:name=".ViewAcitivity" />
-        <activity android:name=".asyntask.AsyntaskActivity">
+        <activity android:name=".ui.test.ViewAcitivity" />
+        <activity android:name="com.t3h.mvvm.ui.test.asyntask.AsyntaskActivity">
 
         </activity>
-        <activity android:name=".fragment.LoginRegisterActivity">
+        <activity android:name="com.t3h.mvvm.ui.test.fragment.LoginRegisterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".viewpager.StoreActivity">
+        <activity android:name="com.t3h.mvvm.ui.test.viewpager.StoreActivity">
 
         </activity>
     </application>

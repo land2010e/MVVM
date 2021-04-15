@@ -1,13 +1,12 @@
-package com.t3h.mvvm.fragment.store
+package com.t3h.mvvm.ui.test.fragment.store
 
 import android.os.Bundle
 import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.t3h.mvvm.BaseFragment
+import com.t3h.mvvm.ui.base.BaseFragment
 import com.t3h.mvvm.databinding.FragmentExternalStoreBinding
 import java.io.File
 

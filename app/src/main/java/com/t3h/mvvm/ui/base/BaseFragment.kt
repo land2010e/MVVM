@@ -1,6 +1,7 @@
-package com.t3h.mvvm
+package com.t3h.mvvm.ui.base
 
 import androidx.fragment.app.Fragment
+import com.t3h.mvvm.ui.base.BaseActivity
 
 open class BaseFragment:Fragment(){
 

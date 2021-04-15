@@ -1,19 +1,23 @@
-package com.t3h.mvvm
+package com.t3h.mvvm.ui.main
 
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.t3h.mvvm.R
 import com.t3h.mvvm.databinding.ActivityMainBinding
+import com.t3h.mvvm.ui.test.AoDaiData
+import com.t3h.mvvm.ui.test.AoDaoAdapter
 
 class MainActivity : AppCompatActivity(), AoDaoAdapter.IAodaiAdapter {
     private val aodais: MutableList<AoDaiData> = mutableListOf()
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this,
+            R.layout.activity_main
+        )
         initData()
         val adapter = AoDaoAdapter(this)
         //cach sap xep cac itemview
