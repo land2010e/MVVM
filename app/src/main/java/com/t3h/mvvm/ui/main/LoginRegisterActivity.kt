@@ -1,10 +1,14 @@
-package com.t3h.mvvm.ui.test.fragment
+package com.t3h.mvvm.ui.main
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.t3h.mvvm.ui.base.BaseActivity
 import com.t3h.mvvm.ui.base.BaseFragment
 import com.t3h.mvvm.R
+import com.t3h.mvvm.ui.main.songserch.SongSearchFragment
+import com.t3h.mvvm.ui.test.fragment.LoginFragment
+import com.t3h.mvvm.ui.test.fragment.RegisterFragment
+import com.t3h.mvvm.ui.test.fragment.StoreFragment
 import com.t3h.mvvm.ui.test.fragment.store.ExternalStoreFragment
 import com.t3h.mvvm.ui.test.fragment.store.InfoStoreFragment
 
@@ -12,26 +16,39 @@ class LoginRegisterActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_register)
-        openFirstLoinFragment()
-
-
+        openFirstFragment(SongSearchFragment::class.java)
     }
 
-    private fun openFirstLoinFragment(){
-        //them fragment vao
-        //lay fragmentManager
-        val manager = supportFragmentManager
-        //mo transaction
-        val transaction = manager.beginTransaction()
-        //them fragment vao
-        val fr = LoginFragment()
-        transaction.add(
-            R.id.content, fr,
-            LoginFragment.javaClass.name
-        )
-        transaction.addToBackStack(null)
-        transaction.commit()
+    fun openFirstFragment(clazz: Class<out BaseFragment>){
+        supportFragmentManager
+            .beginTransaction()
+            .add(
+                R.id.content,
+                clazz.newInstance(),
+                clazz.name
+            )
+            .commit()
     }
+
+    fun openHideFragment(clazz: Class<out BaseFragment>){
+        supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(
+                R.anim.open_eneter, R.anim.open_exit,
+                R.anim.back_open, R.anim.back_exit
+            )
+            .hide(
+                findFragmentVisible()!!
+            )
+            .add(
+                R.id.content,
+                clazz.newInstance(),
+                clazz.name
+            )
+            .addToBackStack(null)
+            .commit()
+    }
+
 
     fun openRegister(username: String) {
         //budle giong intent

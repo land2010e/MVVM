@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.t3h.mvvm.R
 import com.t3h.mvvm.databinding.FragmentLoginBinding
+import com.t3h.mvvm.ui.base.BaseFragment
+import com.t3h.mvvm.ui.main.LoginRegisterActivity
 
-class LoginFragment : Fragment, View.OnClickListener {
+class LoginFragment : BaseFragment, View.OnClickListener {
     companion object {
         val TAG = LoginFragment.javaClass.simpleName
     }

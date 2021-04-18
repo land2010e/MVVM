@@ -1,5 +1,7 @@
 package com.t3h.mvvm.model.song
 
+import com.google.gson.annotations.SerializedName
+
 data class ZingResponse(
     var err: Int = 0,
     var msg: String = "",
@@ -19,11 +21,21 @@ data class Song(
     var code: String = "",
     var duration: Int = 0,
     var total: Int = 0,
-    var artist: Artist? = null
+    var artist: Artist? = null,
+    @SerializedName("thumbnail")
+    var thumbNail: String? = null,
+    var album: Album? = null
+)
+
+data class Album(
+    @SerializedName("thumbnail_medium")
+    var thumbnailMedium: String = "",
+    val artists :MutableList<Artist> = mutableListOf<Artist>()
 )
 
 data class Artist(
     var id: String = "",
     var name: String = "",
     var thumbnail: String = ""
+
 )

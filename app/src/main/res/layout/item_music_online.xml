@@ -5,55 +5,55 @@
 
         <variable
             name="data"
-            type="com.t3h.mvvm.ui.test.fragment.store.FolderInfo" />
+            type="com.t3h.mvvm.model.song.Song" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_margin="2dp"
+        app:cardElevation="8dp"
+
+        app:cardCornerRadius="8dp"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="2dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/iv_img"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:layout_marginLeft="8dp"
-            android:src="@drawable/baseline_insert_drive_file_orange_500_48dp"
-            app:setImageFile="@{data.file}" />
+        android:layout_height="wrap_content">
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:orientation="vertical">
+
+            <com.t3h.mvvm.ui.customview.SquareImageView
+                android:id="@+id/tv_img"
+                android:layout_width="match_parent"
+                android:layout_height="352dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ao_dai1"
+                app:loadImageLink="@{data.album != null ? data.album.thumbnailMedium : data.thumbNail}" />
 
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginRight="16dp"
-                android:text="IDM"
+                android:text="Xa em"
                 android:textColor="?colorPrimary"
                 android:textSize="16sp"
-                app:setText="@{data.name}" />
+                app:setText="@{data.title}" />
 
             <TextView
-                android:id="@+id/tv_path"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginRight="16dp"
-                android:text='@{data.path, default="path/test"}'
+                android:layout_marginBottom="8dp"
+                android:text="Noo Phuoc Thinh"
                 android:textColor="?colorPrimary"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                app:setText="@{data.artist.name}" />
         </LinearLayout>
-
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </layout>

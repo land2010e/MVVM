@@ -19,7 +19,7 @@
         <activity android:name="com.t3h.mvvm.ui.test.asyntask.AsyntaskActivity">
 
         </activity>
-        <activity android:name="com.t3h.mvvm.ui.test.fragment.LoginRegisterActivity">
+        <activity android:name="com.t3h.mvvm.ui.main.LoginRegisterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

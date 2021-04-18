@@ -15,5 +15,12 @@ open interface ZingApi {
         @Query("time") time: Int = -1
     ): Observable<ZingResponse>
 
+    @GET("/complete")
+    fun getSong(
+        @Query("type") type: String = "artist,song,key,code",
+        @Query("num") num: Int = 500,
+        @Query("query") songName: String
+    ): Observable<ZingResponse>
+
 
 }

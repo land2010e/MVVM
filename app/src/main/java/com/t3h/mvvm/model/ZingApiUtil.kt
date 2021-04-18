@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
 
 object ZingApiUtil{
     @JvmStatic
-    fun createZingApi() : ZingApi{
+    fun createZingApi(baseLink:String="http://mp3.zing.vn") : ZingApi{
         val http = OkHttpClient.Builder()
             .callTimeout(1, TimeUnit.MINUTES)
             .readTimeout(1, TimeUnit.MINUTES)
@@ -26,7 +26,7 @@ object ZingApiUtil{
             )
             .build()
         return Retrofit.Builder()
-            .baseUrl("http://mp3.zing.vn")
+            .baseUrl(baseLink)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(http)

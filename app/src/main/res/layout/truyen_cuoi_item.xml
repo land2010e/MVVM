@@ -5,7 +5,7 @@
 
         <variable
             name="data"
-            type="com.t3h.mvvm.asyntask.TruyenCuoiData" />
+            type="com.t3h.mvvm.ui.test.asyntask.TruyenCuoiData" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,7 +16,7 @@
         android:background="?selectableItemBackground"
         android:orientation="vertical">
 
-        <com.t3h.mvvm.ui.test.asyntask.SquareImageView
+        <com.t3h.mvvm.ui.customview.SquareImageView
             android:id="@+id/tv_img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
