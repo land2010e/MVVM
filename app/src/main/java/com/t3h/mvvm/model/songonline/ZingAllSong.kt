@@ -1,4 +1,4 @@
-package com.t3h.mvvm.model.song
+package com.t3h.mvvm.model.songonline
 
 import com.google.gson.annotations.SerializedName
 

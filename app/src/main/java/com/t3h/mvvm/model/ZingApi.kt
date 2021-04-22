@@ -1,6 +1,7 @@
 package com.t3h.mvvm.model
 
-import com.t3h.mvvm.model.song.ZingResponse
+import com.t3h.mvvm.model.songonline.SongSearchResponse
+import com.t3h.mvvm.model.songonline.ZingResponse
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -20,7 +21,7 @@ open interface ZingApi {
         @Query("type") type: String = "artist,song,key,code",
         @Query("num") num: Int = 500,
         @Query("query") songName: String
-    ): Observable<ZingResponse>
+    ): Observable<SongSearchResponse>
 
 
 }

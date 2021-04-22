@@ -5,7 +5,7 @@
 
         <variable
             name="data"
-            type="com.t3h.mvvm.model.song.Song" />
+            type="com.t3h.mvvm.model.songonline.Song" />
     </data>
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"

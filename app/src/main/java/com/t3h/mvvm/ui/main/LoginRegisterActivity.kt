@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import com.t3h.mvvm.ui.base.BaseActivity
 import com.t3h.mvvm.ui.base.BaseFragment
 import com.t3h.mvvm.R
+import com.t3h.mvvm.ui.main.songoffline.SongOfflineFragment
 import com.t3h.mvvm.ui.main.songserch.SongSearchFragment
 import com.t3h.mvvm.ui.test.fragment.LoginFragment
 import com.t3h.mvvm.ui.test.fragment.RegisterFragment
@@ -16,7 +17,7 @@ class LoginRegisterActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_register)
-        openFirstFragment(SongSearchFragment::class.java)
+        openFirstFragment(SongOfflineFragment::class.java)
     }
 
     fun openFirstFragment(clazz: Class<out BaseFragment>){

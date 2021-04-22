@@ -3,12 +3,14 @@ package com.t3h.mvvm.ui.main.songserch
 import androidx.lifecycle.MutableLiveData
 import com.t3h.mvvm.model.ZingApi
 import com.t3h.mvvm.model.ZingApiUtil
-import com.t3h.mvvm.model.song.Song
+import com.t3h.mvvm.model.songonline.Song
+import com.t3h.mvvm.model.songonline.SongSearch
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class SongSearchModel{
     val songRes = MutableLiveData<MutableList<Song>>()
+    val songSearchRes = MutableLiveData<MutableList<SongSearch>>()
     private val zingApi:ZingApi
     private val zingApiSearch:ZingApi
     constructor(){
@@ -44,7 +46,7 @@ class SongSearchModel{
         //bat dau call
             .subscribe(
                 {
-                    songRes.value = it.data!!.song
+                    songSearchRes.value = it.data!![0].song
                 },
                 {
                     print("")

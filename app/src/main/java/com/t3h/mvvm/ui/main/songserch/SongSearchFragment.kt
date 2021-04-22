@@ -7,13 +7,16 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.t3h.mvvm.databinding.FragmentSearchSongBinding
-import com.t3h.mvvm.model.song.Song
+import com.t3h.mvvm.model.songonline.Song
+import com.t3h.mvvm.model.songonline.SongSearch
 import com.t3h.mvvm.ui.base.BaseFragment
 
 class SongSearchFragment : BaseFragment(), View.OnClickListener, SongSearchAdapter.ISongSearch {
     private var model: SongSearchModel? = null
     private var binding: FragmentSearchSongBinding? = null
     private val songs = mutableListOf<Song>()
+    private val songSearchs = mutableListOf<SongSearch>()
+    private val allSong = mutableListOf<Any>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,10 +30,20 @@ class SongSearchFragment : BaseFragment(), View.OnClickListener, SongSearchAdapt
         super.onViewCreated(view, savedInstanceState)
         model = SongSearchModel()
         binding?.btnSearch?.setOnClickListener(this)
-        binding?.rc?.layoutManager = GridLayoutManager(
+        val mrg = GridLayoutManager(
             context,
             2
         )
+        mrg.spanSizeLookup = object :GridLayoutManager.SpanSizeLookup(){
+            override fun getSpanSize(position: Int): Int {
+                if (getData(position) is Song){
+                    return 1
+                }else{
+                    return 2
+                }
+            }
+        }
+        binding?.rc?.layoutManager = mrg
         binding?.rc?.adapter = SongSearchAdapter(this)
         register()
     }
@@ -50,15 +63,46 @@ class SongSearchFragment : BaseFragment(), View.OnClickListener, SongSearchAdapt
     fun register() {
         model?.songRes?.observe(this, Observer {
             //noi nhan du lieu
+            allSong.clear()
             songs.clear()
             songs.addAll(it)
+
+            allSong.addAll(songs)
+            allSong.addAll(songSearchs)
+            //tron
+            allSong.shuffle()
+            binding?.rc?.adapter?.notifyDataSetChanged()
+        })
+
+        model?.songSearchRes?.observe(this, Observer {
+            //noi nhan du lieu
+            allSong.clear()
+            songSearchs.clear()
+            songSearchs.addAll(it)
+
+            //tron
+            allSong.addAll(songs)
+            allSong.addAll(songSearchs)
+            allSong.shuffle()
             binding?.rc?.adapter?.notifyDataSetChanged()
         })
     }
 
-    override fun getCount() = songs.size
+    override fun getCount():Int {
+//        if (songs.size > 0 ){
+//            return songs.size
+//        }
+//        return songSearchs.size
+        return allSong.size
+    }
 
-    override fun getData(position: Int) = songs[position]
+    override fun getData(position: Int) : Any{
+//        if (songs.size > 0 ){
+//            return songs[position]
+//        }
+//        return songSearchs[position]
+        return allSong[position]
+    }
     override fun onItemClick(position: Int) {
 
     }

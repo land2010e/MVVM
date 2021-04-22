@@ -5,6 +5,7 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.t3h.mvvm.R
+import java.io.File
 
 object BindingUtils {
     //ta ca cac phuong thuc trong nay deu la static
@@ -15,6 +16,24 @@ object BindingUtils {
     fun loadImageInt(iv: ImageView, imageId: Int) {
         Glide.with(iv)
             .load(imageId)
+            .placeholder(R.drawable.ao_dai1)
+            .error(R.drawable.ao_dai1)
+            .into(iv)
+    }
+
+    @JvmStatic
+    @BindingAdapter("loadImageFile")
+    fun loadImageFile(iv: ImageView, path: String?) {
+        if (path == null || path.equals("")){
+            Glide.with(iv)
+                .load(R.drawable.ao_dai1)
+                .placeholder(R.drawable.ao_dai1)
+                .error(R.drawable.ao_dai1)
+                .into(iv)
+            return
+        }
+        Glide.with(iv)
+            .load(File(path))
             .placeholder(R.drawable.ao_dai1)
             .error(R.drawable.ao_dai1)
             .into(iv)
