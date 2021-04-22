@@ -29,7 +29,7 @@
                 android:layout_height="156dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ao_dai1"
-                app:loadImageFile="@{data.pathImage}" />
+                app:loadImageUri="@{data.pathImage}" />
 
             <LinearLayout
                 android:orientation="vertical"

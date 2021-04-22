@@ -1,5 +1,6 @@
 package com.t3h.mvvm.ui.customview
 
+import android.net.Uri
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -34,6 +35,23 @@ object BindingUtils {
         }
         Glide.with(iv)
             .load(File(path))
+            .placeholder(R.drawable.ao_dai1)
+            .error(R.drawable.ao_dai1)
+            .into(iv)
+    }
+    @JvmStatic
+    @BindingAdapter("loadImageUri")
+    fun loadImageUri(iv: ImageView, uri: Uri?) {
+        if (uri == null){
+            Glide.with(iv)
+                .load(R.drawable.ao_dai1)
+                .placeholder(R.drawable.ao_dai1)
+                .error(R.drawable.ao_dai1)
+                .into(iv)
+            return
+        }
+        Glide.with(iv)
+            .load(uri)
             .placeholder(R.drawable.ao_dai1)
             .error(R.drawable.ao_dai1)
             .into(iv)

@@ -30,6 +30,9 @@ class SongOfflineAdapter : RecyclerView.Adapter<SongOfflineAdapter.SongOfflineVi
 
     override fun onBindViewHolder(holder: SongOfflineViewHolder, position: Int) {
         holder.binding.data = inter.getData(position)
+        holder.binding.root.setOnClickListener {
+            inter.onItemClick(position)
+        }
     }
 
     interface ISongOffline : BaseAdapter.IBaseAdapter<SongOffline>

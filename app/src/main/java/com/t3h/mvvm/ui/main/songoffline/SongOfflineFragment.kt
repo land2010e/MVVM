@@ -1,5 +1,7 @@
 package com.t3h.mvvm.ui.main.songoffline
 
+import android.content.ContentUris
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.LayoutInflater
@@ -55,12 +57,16 @@ class SongOfflineFragment : BaseFragment(), SongOfflineAdapter.ISongOffline {
             val ab = c.getLong(indexAb)
             val title = c.getString(indexTitle)
             val date = Date(c.getLong(indexDate) * 1000)
+            val uri = ContentUris.withAppendedId(
+                Uri.parse("content://media/external/audio/albumart"),
+                ab)
             musicOfflines.add(
                 SongOffline(
-                    title, artist, null, date,
+                    title, artist, uri, date,
                     path
                 )
             )
+            c.moveToNext()
         }
         binding?.rc?.adapter?.notifyDataSetChanged()
     }
