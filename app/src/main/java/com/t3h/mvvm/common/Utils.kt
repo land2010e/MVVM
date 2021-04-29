@@ -29,7 +29,7 @@ object Utils{
             it.onNext(path+File.separator+name+".mp3")
             it.onComplete()
         }
-            .observeOn(Schedulers.from(exDownload))
+            .subscribeOn(Schedulers.from(exDownload))
             .subscribe()
     }
 }
