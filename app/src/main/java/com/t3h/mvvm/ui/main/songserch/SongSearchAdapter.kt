@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.t3h.mvvm.databinding.ItemMusicOnlineBinding
 import com.t3h.mvvm.databinding.ItemMusicOnlineSearchBinding
+import com.t3h.mvvm.db.entity.SongSearch
 import com.t3h.mvvm.model.songonline.Song
-import com.t3h.mvvm.model.songonline.SongSearch
 import com.t3h.mvvm.ui.base.adapter.BaseAdapter
 
 class SongSearchAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
@@ -42,6 +42,12 @@ class SongSearchAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
             (holder as SongSearchViewHolder).binding.data =inter.getData(position) as Song
         }else {
             (holder as SongViewHolder).binding.data = inter.getData(position) as SongSearch
+            (holder as SongViewHolder).binding.btnDownload.setOnClickListener {
+                inter.onItemClickDownload(position)
+            }
+        }
+        holder.itemView.setOnClickListener {
+            inter.onItemClick(position)
         }
 
     }
@@ -55,6 +61,7 @@ class SongSearchAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>{
     }
 
     interface ISongSearch : BaseAdapter.IBaseAdapter<Any>{
+        fun onItemClickDownload(position:Int)
     }
 
     class SongSearchViewHolder(binding: ItemMusicOnlineBinding) :

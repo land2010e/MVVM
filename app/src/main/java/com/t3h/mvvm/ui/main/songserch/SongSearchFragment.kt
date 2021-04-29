@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import com.t3h.mvvm.common.Utils
 import com.t3h.mvvm.databinding.FragmentSearchSongBinding
 import com.t3h.mvvm.model.songonline.Song
-import com.t3h.mvvm.model.songonline.SongSearch
+import com.t3h.mvvm.db.entity.SongSearch
 import com.t3h.mvvm.ui.base.BaseFragment
 
 class SongSearchFragment : BaseFragment(), View.OnClickListener, SongSearchAdapter.ISongSearch {
@@ -17,6 +18,7 @@ class SongSearchFragment : BaseFragment(), View.OnClickListener, SongSearchAdapt
     private val songs = mutableListOf<Song>()
     private val songSearchs = mutableListOf<SongSearch>()
     private val allSong = mutableListOf<Any>()
+    private var mPlayer : MusicOnlineMediaPlayer?=null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,6 +31,7 @@ class SongSearchFragment : BaseFragment(), View.OnClickListener, SongSearchAdapt
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         model = SongSearchModel()
+        mPlayer = MusicOnlineMediaPlayer()
         binding?.btnSearch?.setOnClickListener(this)
         val mrg = GridLayoutManager(
             context,
@@ -70,7 +73,7 @@ class SongSearchFragment : BaseFragment(), View.OnClickListener, SongSearchAdapt
             allSong.addAll(songs)
             allSong.addAll(songSearchs)
             //tron
-            allSong.shuffle()
+//            allSong.shuffle()
             binding?.rc?.adapter?.notifyDataSetChanged()
         })
 
@@ -83,7 +86,7 @@ class SongSearchFragment : BaseFragment(), View.OnClickListener, SongSearchAdapt
             //tron
             allSong.addAll(songs)
             allSong.addAll(songSearchs)
-            allSong.shuffle()
+//            allSong.shuffle()
             binding?.rc?.adapter?.notifyDataSetChanged()
         })
     }
@@ -104,6 +107,20 @@ class SongSearchFragment : BaseFragment(), View.OnClickListener, SongSearchAdapt
         return allSong[position]
     }
     override fun onItemClick(position: Int) {
+        if (getData(position) is SongSearch){
+            mPlayer?.setDataSource(
+                "http://api.mp3.zing.vn/api/streaming/audio/${(getData(position) as SongSearch)
+                    .id}/320"
+            )
+        }
 
+    }
+
+    override fun onItemClickDownload(position: Int) {
+        Utils.downloadMp3Async(
+            "http://api.mp3.zing.vn/api/streaming/audio/${(getData(position) as SongSearch)
+                .id}/320",
+            (getData(position) as SongSearch).name
+        )
     }
 }

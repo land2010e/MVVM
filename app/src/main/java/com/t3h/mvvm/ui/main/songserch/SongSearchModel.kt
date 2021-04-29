@@ -1,10 +1,13 @@
 package com.t3h.mvvm.ui.main.songserch
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
+import com.t3h.mvvm.common.MyApp
+import com.t3h.mvvm.db.entity.SongSearch
 import com.t3h.mvvm.model.ZingApi
 import com.t3h.mvvm.model.ZingApiUtil
 import com.t3h.mvvm.model.songonline.Song
-import com.t3h.mvvm.model.songonline.SongSearch
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -19,6 +22,7 @@ class SongSearchModel{
             "http://ac.mp3.zing.vn"
         )
     }
+    @SuppressLint("CheckResult")
     fun getSongFavourite(){
         zingApi.getAllSong()
                 //tuong tac voi internal nam tren thread nao
@@ -37,6 +41,7 @@ class SongSearchModel{
             )
 
     }
+    @SuppressLint("CheckResult")
     fun getSong(songName:String){
         zingApiSearch.getSong(songName = songName)
                 //tuong tac voi internal nam tren thread nao
@@ -46,13 +51,48 @@ class SongSearchModel{
         //bat dau call
             .subscribe(
                 {
-                    songSearchRes.value = it.data!![0].song
+                    //luu vao db
+                    val songs = it.data[0].song
+                    for (song in songs) {
+                        song.keySearch = songName
+                    }
+
+                    saveSongSearch(songs)
+                    //main thread
+                    songSearchRes.value = songs
+
+
                 },
                 {
                     print("")
+                    it.printStackTrace()
+                    //lay tu db ra
+                    val songs = MyApp.getDB().songSearchDao()
+                        .getByKeySearch(songName)
+                    songSearchRes.value = songs
 
                 }
             )
 
+    }
+
+    @SuppressLint("CheckResult")
+    private fun saveSongSearch(songs: MutableList<SongSearch>) {
+        Observable.create<MutableList<SongSearch>> {
+            //thuc hien
+            //thuc o thread cua subscribeOn
+            MyApp.getDB().songSearchDao()
+                .insertAll(songs)
+            //chuyen ket qua xuong thread cua observeOn
+            it.onNext(songs)
+            it.onComplete()
+        }
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+
+            },{
+                it.printStackTrace()
+            })
     }
 }

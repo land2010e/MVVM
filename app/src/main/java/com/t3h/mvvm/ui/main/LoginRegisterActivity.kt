@@ -17,7 +17,7 @@ class LoginRegisterActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_register)
-        openFirstFragment(SongOfflineFragment::class.java)
+        openFirstFragment(SongSearchFragment::class.java)
     }
 
     fun openFirstFragment(clazz: Class<out BaseFragment>){

@@ -16,7 +16,8 @@ import java.util.*
 class SongOfflineFragment : BaseFragment(), SongOfflineAdapter.ISongOffline {
     private val musicOfflines = mutableListOf<SongOffline>()
     private var binding: FragmentMusicOfflineBinding? = null
-    private var musicMrg:MusicOfflinePlayer?=null
+    private var musicMrg: MusicOfflinePlayer? = null
+    private var currentPosition = -1
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -34,6 +35,10 @@ class SongOfflineFragment : BaseFragment(), SongOfflineAdapter.ISongOffline {
         binding?.rc?.layoutManager = LinearLayoutManager(context)
         binding?.rc?.adapter = SongOfflineAdapter(this)
         musicMrg = MusicOfflinePlayer()
+        musicMrg?.complete = {
+            currentPosition = (currentPosition + 1) % getCount()
+            onItemClick(currentPosition)
+        }
     }
 
     private fun loadData() {
@@ -59,7 +64,8 @@ class SongOfflineFragment : BaseFragment(), SongOfflineAdapter.ISongOffline {
             val date = Date(c.getLong(indexDate) * 1000)
             val uri = ContentUris.withAppendedId(
                 Uri.parse("content://media/external/audio/albumart"),
-                ab)
+                ab
+            )
             musicOfflines.add(
                 SongOffline(
                     title, artist, uri, date,
@@ -85,7 +91,8 @@ class SongOfflineFragment : BaseFragment(), SongOfflineAdapter.ISongOffline {
     }
 
     override fun onItemClick(position: Int) {
-        musicMrg?.setDataSource( musicOfflines[position].path)
+        currentPosition = position
+        musicMrg?.setDataSource(musicOfflines[position].path)
         musicMrg?.start()
     }
 }
